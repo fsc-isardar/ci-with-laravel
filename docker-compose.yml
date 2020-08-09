@@ -1,0 +1,85 @@
+version: '3'
+
+services:
+
+  # runs Apache, PHP, webapp(s) on this machine
+  dev_webserver:
+
+    build:
+      # path to Dockerfile from this file
+      context: .
+      # name of Dockerfile
+      dockerfile: ./dockerfiles/webserver.Dockerfile
+
+    ports:
+      # map host's port 80 (left) to container's port 80 (right)
+      # ...container port and host port are expected to be open...
+      - "80:80"
+      # same as above: maps external port <-> internal port
+      - "443:443"
+  
+    depends_on:
+      # does not start this service until database service starts
+      - dev_database
+
+    # map each named volume to a specified folder/file in container
+    volumes:
+      - ./src:/var/www/html # copy from here to there...
+      - dev_php_ini:/usr/local/etc/php/php.ini # mkdir there...
+      - dev_server_logs:/var/log/apache2 # mkdir there...
+
+  # runs MySQL on this machine
+  dev_database:
+
+    build:
+      context: .
+      dockerfile: ./dockerfiles/database.Dockerfile
+    
+    ports:
+      - "3306:3306"
+
+    # env variables for this container
+    environment:
+      MYSQL_DATABASE: my_default_db
+      MYSQL_ROOT_PASSWORD: secret
+
+    command:
+      --init-file /data/application/init.sql
+    
+    # always auto-restart regardless of how the container exited (except some cases)
+    restart: always
+
+    volumes:
+      - dev_db_data:/var/lib/mysql
+      - dev_db_logs:/var/log/mysql
+      - ./server/init.sql:/data/application/init.sql
+
+  # runs PhpMyAdmin on this machine
+  dev_admin:
+
+    build:
+      context: .
+      dockerfile: ./dockerfiles/admin.Dockerfile
+
+    ports:
+      - "8000:80"
+
+    restart: always
+
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: dev_database
+    
+    depends_on:
+      - dev_database
+
+# details of specified volumes
+volumes:
+
+  dev_php_ini:
+  
+  dev_server_logs:
+  
+  dev_db_data:
+  
+  dev_db_logs:
