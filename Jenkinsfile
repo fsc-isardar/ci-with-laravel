@@ -46,9 +46,10 @@ pipeline {
                 sh "echo Integration tests passed."
             }
         }
-        stage('merge') {
+        stage('copy') {
             steps {
-                echo 'Merging integrate with development branch...'
+                echo 'Copying integrate to development branch...'
+                sh 'git push remote --delete development'
                 sh 'git checkout development'
                 sh 'git merge -v --no-commit integrate'
                 telegramSend 'Merge ready to inspect before commiting/aborting in Jenkins @ http://68.183.24.172:8080/job/ci-with-laravel/'
