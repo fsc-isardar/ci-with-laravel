@@ -24,9 +24,9 @@ services:
 
     # map each named volume to a specified folder/file in container
     volumes:
-      - ./src:/var/www/html # copy from here to there...
-      - dev_php_ini:/usr/local/etc/php/php.ini # mkdir there...
-      - dev_server_logs:/var/log/apache2 # mkdir there...
+      - ./:/var/www/html # copy from here to there...
+      - ./?:/usr/local/etc/php # map host dir to container dir...
+      - ./?:/var/log/apache2 # map host dir to container dir...
 
   # runs MySQL on this machine
   dev_database:
@@ -50,8 +50,8 @@ services:
     restart: always
 
     volumes:
-      - dev_db_data:/var/lib/mysql
-      - dev_db_logs:/var/log/mysql
+      - ./?:/var/lib/mysql
+      - ./?:/var/log/mysql
       - ./server/init.sql:/data/application/init.sql
 
   # runs PhpMyAdmin on this machine
@@ -72,14 +72,3 @@ services:
     
     depends_on:
       - dev_database
-
-# details of specified volumes
-volumes:
-
-  dev_php_ini:
-  
-  dev_server_logs:
-  
-  dev_db_data:
-  
-  dev_db_logs:
