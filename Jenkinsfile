@@ -20,7 +20,7 @@ pipeline {
     stages {
         stage('trigger') {
             steps {
-                echo 'Merged into integrate branch.'
+                echo 'Merge detected into integrate branch.'
             }
         }
         stage('build') {
@@ -37,8 +37,9 @@ pipeline {
                     def result = sh(script: "$?", returnStatus: true)
                     if (result != 0) {
                         sh("echo Integration tests failed. Rolling back merge on integrate...")
-                        sh("git checkout integrate")
+                        sh("git checkout origin/integrate")
                         sh("git revert -m 1")
+                        sh('git push')
                         TESTS_FAILED = true
                         error("integrate branch rolled back.")
                     }
@@ -49,9 +50,8 @@ pipeline {
         stage('copy') {
             steps {
                 echo 'Copying integrate to development branch...'
-                sh 'git push remote --delete development'
-                sh 'git checkout development'
-                sh 'git merge -v --no-commit integrate'
+                sh 'git checkout origin/development'
+                sh 'git merge -v --no-commit origin/integrate'
                 telegramSend 'Merge ready to inspect before commiting/aborting in Jenkins @ http://68.183.24.172:8080/job/ci-with-laravel/'
                 script {
                     println 'Merge ready to inspect. Press "f" to abort merge, otherwise press any other key to commit the merge.'
@@ -59,9 +59,11 @@ pipeline {
                     if (choice == 'f') {
                         sh('git merge --abort')
                         error('Merge aborted.')
-                    }    
-                    sh('git commit')
+                    }
                 }
+                sh 'git add -a'
+                sh 'git commit'
+                sh 'git push'
             }
         }
         stage('clean') {
