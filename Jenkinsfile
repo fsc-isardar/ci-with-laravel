@@ -34,7 +34,7 @@ pipeline {
                 echo 'Continuous integration testing...'
                 sh 'php artisan test --group=ci'
                 script {
-                    def result = sh(script: "$?", returnStatus: true)
+                    def result = sh(script: "\$?", returnStatus: true)
                     if (result != 0) {
                         sh("echo Integration tests failed. Rolling back merge on integrate...")
                         sh("git checkout origin/integrate")
