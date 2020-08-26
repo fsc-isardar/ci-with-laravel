@@ -26,7 +26,7 @@ pipeline {
         stage('build') {
             steps {
                 echo 'Building...'
-                sh 'docker-compose up'
+                sh 'ssh -o StrictHostKeyChecking=no root@68.183.24.172 docker-compose up'
             }
         }
         stage('test') {
