@@ -15,7 +15,7 @@ pipeline {
                 }
             }
         }"""
-        PATH = "$PATH:/usr/local/bin"
+        PATH = "$PATH:/usr/local/bin/docker-compose"
     }
 
     stages {
