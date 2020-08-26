@@ -26,7 +26,6 @@ pipeline {
         stage('build') {
             steps {
                 echo 'Building...'
-                sh 'ls'
                 sh 'sudo docker-compose up'
             }
         }
