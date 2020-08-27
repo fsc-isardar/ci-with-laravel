@@ -26,6 +26,17 @@ pipeline {
         stage('build') {
             steps {
                 echo 'Building...'
+                // Steps for making this work:
+                // - get SSH Agent plugin for Jenkins
+                // - go into the docker container that is hosting Jenkins:
+                //   > docker exec -it --user root jenkins-blueocean /bin/bash
+                //   > ssh-keygen
+                //   >  ssh-copy-id -i jenkins@68.183.24.172
+                //   (check if it work via: "ssh -v jenkins@68.183.24.172")
+                // - Then, copy the private key from the container:
+                //   > vi .ssh/id_rsa
+                // - Then, paste the private key in a new credential (ID=jenkins-at-fsc-learning-ssh-creds), as well as other onfo...
+                // - After those steps, this should work:
                 sshagent(credentials : ['jenkins-at-fsc-learning-ssh-creds']) {
                     sh 'ssh -v jenkins@68.183.24.172 "docker-compose up" '
                 }
