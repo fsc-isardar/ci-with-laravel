@@ -34,9 +34,9 @@ pipeline {
                 // - After those steps, this should work:
                 sshagent(credentials : ['jenkins-at-fsc-learning-ssh-creds']) {
                     script {
-                        sh('ssh -v jenkins@68.183.24.172' +
-                            '"rm -f -r ci-with-laravel &&"' +
-                            '" git clone -b integrate https://github.com/fsc-isardar/ci-with-laravel.git"')
+                        String cmd = 'rm -f -r ci-with-laravel &&' +
+                            ' git clone -b integrate https://github.com/fsc-isardar/ci-with-laravel.git'
+                        sh('ssh -v jenkins@68.183.24.172 "' + cmd + '"')
                     }
                 }
             }
@@ -46,9 +46,9 @@ pipeline {
                 echo 'Building...'
                 sshagent(credentials : ['jenkins-at-fsc-learning-ssh-creds']) {
                     script {
-                        sh('ssh -v jenkins@68.183.24.172' +
-                            '"cd ci-with-laravel &&"' +
-                            ' "docker-compose up"')
+                        String cmd = 'cd ci-with-laravel &&' +
+                            ' docker-compose up'
+                        sh('ssh -v jenkins@68.183.24.172 "' + cmd + '"')
                     }
                 }
             }
