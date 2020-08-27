@@ -15,7 +15,6 @@ pipeline {
                 }
             }
         }"""
-        PATH = "$PATH:/usr/bin/docker-compose"
     }
 
     stages {
@@ -27,6 +26,12 @@ pipeline {
         stage('build') {
             steps {
                 echo 'Building...'
+                //sshagent(credentials : ['use-the-id-from-credential-generated-by-jenkins']) {
+                //    sh 'ssh -o StrictHostKeyChecking=no jenkins@68.183.24.172 uptime'
+                //    sh 'ssh -v jenkins@68.183.24.172'
+                //    sh 'scp ./source/filename jenkins@68.183.24.172:/remotehost/target'
+                //}
+                sh 'ssh -v jenkins@68.183.24.172'
                 sh 'docker-compose up'
             }
         }
