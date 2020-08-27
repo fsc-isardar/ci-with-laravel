@@ -27,11 +27,10 @@ pipeline {
             steps {
                 echo 'Building...'
                 sshagent(credentials : ['jenkins-at-fsc-learning-ssh-creds']) {
-                //    sh 'ssh -o StrictHostKeyChecking=no jenkins@68.183.24.172 uptime'
+                    sh 'ssh -o StrictHostKeyChecking=no jenkins@68.183.24.172 uptime'
                     sh 'ssh -v jenkins@68.183.24.172'
-                //    sh 'scp ./source/filename jenkins@68.183.24.172:/remotehost/target'
+                    sh 'scp ./source/filename jenkins@68.183.24.172:/remotehost/target'
                 }
-                //sh 'ssh -v jenkins@68.183.24.172'
                 sh 'docker-compose up'
             }
         }
