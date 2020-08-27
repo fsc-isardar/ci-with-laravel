@@ -48,7 +48,7 @@ pipeline {
                     script {
                         String cmd = 'cd ci-with-laravel &&' +
                             ' docker-compose up'
-                        sh('ssh -v jenkins@68.183.24.172 "' + cmd + '"')
+                        sh('ssh jenkins@68.183.24.172 "' + cmd + '"')
                     }
                 }
             }
@@ -94,7 +94,12 @@ pipeline {
         stage('clean') {
             steps {
                 echo 'Cleaning up...'
-                sh 'docker-compose down'
+                sshagent(credentials : ['jenkins-at-fsc-learning-ssh-creds']) {
+                    script {
+                        String cmd = 'docker-compose down'
+                        sh('ssh jenkins@68.183.24.172 "' + cmd + '"')
+                    }
+                }
             }
         }
     }
@@ -109,16 +114,21 @@ pipeline {
         }
         failure {
             echo 'Failed.'
-            sh 'docker-compose down'
+            sshagent(credentials : ['jenkins-at-fsc-learning-ssh-creds']) {
+                script {
+                    String cmd = 'docker-compose down'
+                    sh('ssh jenkins@68.183.24.172 "' + cmd + '"')
+                }
+            }
             script {
                 if (TESTS_FAILED == true) {
                     telegramSend 'Integration tests have failed in Jenkins @ http://68.183.24.172:8080/job/ci-with-laravel/'
                 }
             }
+            error 'Aborted.'
         }
         unstable {
             echo 'Ran Unstabley.'
-            sh 'docker-compose down'
         }
         changed {
             echo 'Changed.'
