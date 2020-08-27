@@ -27,16 +27,14 @@ pipeline {
             steps {
                 echo 'Building...'
                 sshagent(credentials : ['jenkins-at-fsc-learning-ssh-creds']) {
-                    //sh 'ssh -o StrictHostKeyChecking=no jenkins@68.183.24.172 uptime'
-                    sh 'ssh -v jenkins@68.183.24.172'
-                    //sh 'scp ./source/filename jenkins@68.183.24.172:/remotehost/target'
-                    sh 'docker-compose up'
+                    sh 'ssh -v jenkins@68.183.24.172 "docker-compose up" '
                 }
             }
         }
         stage('test') {
             steps {
                 echo 'Continuous integration testing...'
+                error('force die!')
                 sh 'php artisan test --group=ci'
                 script {
                     def result = sh(script: "\$?", returnStatus: true)
