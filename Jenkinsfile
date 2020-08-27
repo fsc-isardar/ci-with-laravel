@@ -38,7 +38,7 @@ pipeline {
                 // - Then, paste the private key in a new credential (ID=jenkins-at-fsc-learning-ssh-creds), as well as other onfo...
                 // - After those steps, this should work:
                 sshagent(credentials : ['jenkins-at-fsc-learning-ssh-creds']) {
-                    sh 'ssh -v jenkins@68.183.24.172 "docker-compose up" '
+                    sh 'ssh -v jenkins@68.183.24.172 "git pull https://github.com/fsc-isardar/ci-with-laravel.git" '
                 }
             }
         }
