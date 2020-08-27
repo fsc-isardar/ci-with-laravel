@@ -46,7 +46,7 @@ pipeline {
                 echo 'Building...'
                 sshagent(credentials : ['jenkins-at-fsc-learning-ssh-creds']) {
                     script {
-                        String cmd = 'cd ci-with-laravel &&' +
+                        String cmd = 'cd ~/ci-with-laravel &&' +
                             ' docker-compose up'
                         sh('ssh jenkins@68.183.24.172 "' + cmd + '"')
                     }
@@ -57,6 +57,9 @@ pipeline {
             steps {
                 echo 'Continuous integration testing...'
                 error('force die!')
+
+                // HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
                 sh 'php artisan test --group=ci'
                 script {
                     def result = sh(script: "\$?", returnStatus: true)
@@ -96,7 +99,8 @@ pipeline {
                 echo 'Cleaning up...'
                 sshagent(credentials : ['jenkins-at-fsc-learning-ssh-creds']) {
                     script {
-                        String cmd = 'docker-compose down'
+                        String cmd = 'cd ~/ci-with-laravel &&' +
+                            ' docker-compose down'
                         sh('ssh jenkins@68.183.24.172 "' + cmd + '"')
                     }
                 }
@@ -116,7 +120,8 @@ pipeline {
             echo 'Failed.'
             sshagent(credentials : ['jenkins-at-fsc-learning-ssh-creds']) {
                 script {
-                    String cmd = 'docker-compose down'
+                    String cmd = 'cd ~/ci-with-laravel &&' +
+                            ' docker-compose down'
                     sh('ssh jenkins@68.183.24.172 "' + cmd + '"')
                 }
             }
