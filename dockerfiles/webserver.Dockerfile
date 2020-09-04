@@ -11,7 +11,12 @@ RUN apt -y install software-properties-common
 RUN add-apt-repository ppa:ondrej/php
 RUN apt-get update
 RUN apt -y install php7.4
-RUN apt-get -y install php7.4-{dev,mysql,curl,json,common,mbstring}
+RUN apt-get -y install php7.4-dev
+RUN apt-get -y install php7.4-mysql
+RUN apt-get -y install php7.4-curl
+RUN apt-get -y install php7.4-json
+RUN apt-get -y install php7.4-common
+RUN apt-get -y install php7.4-mbstring
 
 # make apache understand php
 RUN apt-get install -y libapache2-mod-php
