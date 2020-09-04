@@ -35,7 +35,8 @@ pipeline {
                 sshagent(credentials : ['jenkins-at-fsc-learning-ssh-creds']) {
                     script {
                         String cmd = 'rm -f -r ci-with-laravel &&' +
-                            ' git clone -b integrate https://github.com/fsc-isardar/ci-with-laravel.git'
+                            ' git clone -b integrate https://github.com/fsc-isardar/ci-with-laravel.git &&' +
+                            ' cp -v /home/isardar/.env ~/ci-with-laravel/.env'
                         sh('ssh -v jenkins@68.183.24.172 "' + cmd + '"')
                     }
                 }
