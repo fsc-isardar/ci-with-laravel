@@ -2,20 +2,36 @@ FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y
 RUN apt-get upgrade -y
-RUN apt-get install -y apache2 
-# TODO: install PHP 7.3, NOT PHP 7.2. Anything lower than 7.3 is unacceptable
-RUN apt-get install -y php 
-RUN apt-get install -y php-dev 
-RUN apt-get install -y php-mysql 
-RUN apt-get install -y libapache2-mod-php 
-RUN apt-get install -y php-curl 
-RUN apt-get install -y php-json 
-RUN apt-get install -y php-common 
-RUN apt-get install -y php-mbstring 
+
+# server
+RUN apt-get install -y apache2
+
+# php 7.4
+RUN apt -y install software-properties-common
+RUN add-apt-repository ppa:ondrej/php
+RUN apt-get update
+RUN apt -y install php7.4
+RUN apt-get -y install php7.4-{dev,mysql,curl,json,common,mbstring}
+
+# make apache understand php
+RUN apt-get install -y libapache2-mod-php
+
+# composer
 RUN apt-get install -y composer
-RUN curl -s "https://packagecloud.io/install/repositories/phalcon/stable/script.deb.sh" | /bin/bash
-RUN apt-get install -y software-properties-common
-RUN apt install -y php7.4
+
+# TODO: install PHP 7.3, NOT PHP 7.2. Anything lower than 7.3 is unacceptable
+#RUN apt-get install -y php 
+#RUN apt-get install -y php-dev 
+#RUN apt-get install -y php-mysql 
+#RUN apt-get install -y libapache2-mod-php 
+#RUN apt-get install -y php-curl 
+#RUN apt-get install -y php-json 
+#RUN apt-get install -y php-common 
+#RUN apt-get install -y php-mbstring 
+#RUN apt-get install -y composer
+#RUN curl -s "https://packagecloud.io/install/repositories/phalcon/stable/script.deb.sh" | /bin/bash
+#RUN apt-get install -y software-properties-common
+#RUN apt install -y php7.4
 #RUN apt-get install -y php 7.2-phalcon
 #COPY ../server/php.ini /etc/php/7.2/apache2/php.ini .........safe to ignore for now - only need it if we need to pre-set a php setting................
 
