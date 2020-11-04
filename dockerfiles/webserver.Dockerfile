@@ -50,6 +50,9 @@ RUN ln -s /etc/apache2/sites-available/vhost.conf /etc/apache2/sites-enabled/vho
 COPY . /var/www/html/laravel-project
 #COPY ./server/.env /var/www/html/laravel-project
 
+#testing...
+RUN cd /var/www/html/laravel-project && ls
+
 # get composer
 RUN /var/www/html/laravel-project/server/getcomposer.sh
 
