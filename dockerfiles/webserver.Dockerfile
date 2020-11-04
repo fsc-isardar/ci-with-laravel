@@ -40,9 +40,6 @@ RUN apt-get install -y composer
 #RUN apt-get install -y php 7.2-phalcon
 #COPY ../server/php.ini /etc/php/7.2/apache2/php.ini .........safe to ignore for now - only need it if we need to pre-set a php setting................
 
-@todo FIX !
-~~~~> PROBLEM: both Jenkins and this DockerFile are COPYing the project to the server in different places !!!
-
 # set up virtual host in docker container
 COPY ./server/vhost.conf /etc/apache2/sites-available/vhost.conf
 #COPY ./server/apache2.conf /etc/apache2/apache2.conf .........probably will always stick to defaults for this one..............
