@@ -48,12 +48,7 @@ RUN ln -s /etc/apache2/sites-available/vhost.conf /etc/apache2/sites-enabled/vho
 
 # copy laravel project
 COPY . /var/www/html/laravel-project
-#testing...
-RUN cd /var/www/html/laravel-project/server && ls -a
 COPY ./server/.env /var/www/html/laravel-project
-
-#testing...
-#RUN cd /var/www/html/laravel-project/server && ls -a
 
 # get composer
 RUN sudo /var/www/html/laravel-project/server/getcomposer.sh
