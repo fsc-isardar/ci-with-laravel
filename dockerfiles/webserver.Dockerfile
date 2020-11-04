@@ -17,7 +17,9 @@ RUN apt-get -y install php7.4-curl
 RUN apt-get -y install php7.4-json
 RUN apt-get -y install php7.4-common
 RUN apt-get -y install php7.4-mbstring
-RUN apt-get -y install zip unzip php7.4-zip
+RUN apt-get -y install zip
+RUN apt-get -y install unzip
+RUN apt-get -y install php7.4-zip
 
 # make apache understand php
 RUN apt-get install -y libapache2-mod-php
