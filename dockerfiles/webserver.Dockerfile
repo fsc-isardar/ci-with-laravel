@@ -87,6 +87,7 @@ RUN chgrp -R www-data storage bootstrap/cache
 RUN chmod -R ug+rwx storage bootstrap/cache
 
 # compile ui, gen key, and migrate
+RUN npm rebuild
 RUN npm run dev
 RUN php artisan key:generate
 RUN php artisan migrate:fresh --seed
