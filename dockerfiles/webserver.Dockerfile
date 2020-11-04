@@ -51,6 +51,7 @@ COPY . /var/www/html/laravel-project
 COPY ./server/.env /var/www/html/laravel-project
 
 # get composer
+RUN id
 RUN sudo /var/www/html/laravel-project/server/getcomposer.sh
 
 # navigate to and compile project
