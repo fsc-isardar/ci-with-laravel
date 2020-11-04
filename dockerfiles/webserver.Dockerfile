@@ -24,6 +24,10 @@ RUN apt-get install -y libapache2-mod-php
 # composer
 RUN apt-get install -y composer
 
+# misc
+RUN apt-get update
+RUN apt-get install -y wget
+
 # TODO: install PHP 7.3, NOT PHP 7.2. Anything lower than 7.3 is unacceptable
 #RUN apt-get install -y php 
 #RUN apt-get install -y php-dev 
