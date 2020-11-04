@@ -17,9 +17,6 @@ RUN apt-get -y install php7.4-curl
 RUN apt-get -y install php7.4-json
 RUN apt-get -y install php7.4-common
 RUN apt-get -y install php7.4-mbstring
-RUN apt-get -y install zip
-RUN apt-get -y install unzip
-RUN apt-get -y install php7.4-zip
 
 # make apache understand php
 RUN apt-get install -y libapache2-mod-php
@@ -42,6 +39,8 @@ RUN npm --version
 # misc
 RUN apt-get update
 RUN apt-get install -y wget
+RUN apt-get install -y zip
+RUN apt-get install -y unzip
 
 # TODO: install PHP 7.3, NOT PHP 7.2. Anything lower than 7.3 is unacceptable
 #RUN apt-get install -y php 
