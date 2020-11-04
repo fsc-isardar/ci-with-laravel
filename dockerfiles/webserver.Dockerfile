@@ -59,10 +59,10 @@ RUN chmod +x /var/www/html/laravel-project/server/getcomposer.sh
 RUN /var/www/html/laravel-project/server/getcomposer.sh
 
 # navigate to and compile project
-RUN cd /var/www/html/laravel-project
-RUN composer update
-RUN composer install
-RUN npm install
+RUN cd /var/www/html/laravel-project && \
+    composer update && \
+    composer install && \
+    npm install
 
 # TODO: set up Laravel folder permissions correctly
 # see: https://stackoverflow.com/q/30639174
