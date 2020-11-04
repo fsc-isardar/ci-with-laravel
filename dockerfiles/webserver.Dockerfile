@@ -90,7 +90,7 @@ RUN chmod -R ug+rwx storage bootstrap/cache
 RUN npm rebuild
 RUN npm run dev
 RUN php artisan key:generate
-RUN php artisan migrate:fresh --seed
+#RUN php artisan migrate:fresh --seed
 
 # run container
 CMD ["apachectl","-D","FOREGROUND"]
