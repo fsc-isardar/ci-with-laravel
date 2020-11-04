@@ -17,12 +17,25 @@ RUN apt-get -y install php7.4-curl
 RUN apt-get -y install php7.4-json
 RUN apt-get -y install php7.4-common
 RUN apt-get -y install php7.4-mbstring
+RUN apt-get -y install zip unzip php7.4-zip
 
 # make apache understand php
 RUN apt-get install -y libapache2-mod-php
 
 # composer
 RUN apt-get install -y composer
+RUN composer --version
+
+# npm, node
+ENV NODE_VERSION=14.15.0
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
+ENV NVM_DIR=/root/.nvm
+RUN . "$NVM_DIR/nvm.sh" && nvm install ${NODE_VERSION}
+RUN . "$NVM_DIR/nvm.sh" && nvm use v${NODE_VERSION}
+RUN . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
+ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
+RUN node --version
+RUN npm --version
 
 # misc
 RUN apt-get update
@@ -59,10 +72,10 @@ RUN chmod +x /var/www/html/laravel-project/server/getcomposer.sh
 RUN /var/www/html/laravel-project/server/getcomposer.sh
 
 # navigate to and compile project
-RUN cd /var/www/html/laravel-project && \
-    composer update && \
-    composer install && \
-    npm install
+WORKDIR /var/www/html/laravel-project
+RUN composer update
+RUN composer install
+RUN npm install
 
 # TODO: set up Laravel folder permissions correctly
 # see: https://stackoverflow.com/q/30639174
