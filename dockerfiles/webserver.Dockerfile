@@ -52,7 +52,7 @@ COPY ./server/.env /var/www/html/laravel-project
 
 # get composer
 RUN id
-RUN sudo /var/www/html/laravel-project/server/getcomposer.sh
+RUN /var/www/html/laravel-project/server/getcomposer.sh
 
 # navigate to and compile project
 RUN cd /var/www/html/laravel-project
@@ -62,11 +62,11 @@ RUN npm install
 
 # TODO: set up Laravel folder permissions correctly
 # see: https://stackoverflow.com/q/30639174
-RUN sudo chown -R root:www-data /var/www/html/laravel-project
-RUN sudo find /var/www/html/laravel-project -type f -exec chmod 664 {} \;    
-RUN sudo find /var/www/html/laravel-project -type d -exec chmod 775 {} \;
-RUN sudo chgrp -R www-data storage bootstrap/cache
-RUN sudo chmod -R ug+rwx storage bootstrap/cache
+RUN chown -R root:www-data /var/www/html/laravel-project
+RUN find /var/www/html/laravel-project -type f -exec chmod 664 {} \;    
+RUN find /var/www/html/laravel-project -type d -exec chmod 775 {} \;
+RUN chgrp -R www-data storage bootstrap/cache
+RUN chmod -R ug+rwx storage bootstrap/cache
 
 # compile ui, gen key, and migrate
 RUN npm run dev
