@@ -26,7 +26,7 @@ services:
     volumes:
       - ./:/var/www/html # copy from here to there...
       - /docker/volumes/php:/usr/local/etc/php/php.ini # map host server dir to container file...
-      - /docker/volumes/apache2/logs:/var/log/apache2 # map host server dir to container dir...
+      - /docker/volumes/apache2_logs:/var/log/apache2 # map host server dir to container dir...
 
   # runs MySQL on this machine
   dev_database:
@@ -51,7 +51,7 @@ services:
 
     volumes:
       - /docker/volumes/mysql:/var/lib/mysql
-      - /docker/volumes/mysql/logs:/var/log/mysql
+      - /docker/volumes/mysql_logs:/var/log/mysql
       - ./server/init.sql:/data/application/init.sql
 
   # runs PhpMyAdmin on this machine
