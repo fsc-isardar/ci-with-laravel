@@ -14,9 +14,9 @@ services:
     ports:
       # map host's port 80 (left) to container's port 80 (right)
       # ...container port and host port are expected to be open...
-      - "80:80"
+      - "81:80"
       # same as above: maps external port <-> internal port
-      - "443:443"
+      - "444:443"
   
     depends_on:
       # does not start this service until database service starts
@@ -36,7 +36,7 @@ services:
       dockerfile: ./dockerfiles/database.Dockerfile
     
     ports:
-      - "3306:3306"
+      - "3307:3306"
 
     # env variables for this container
     environment:
