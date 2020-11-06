@@ -8,7 +8,7 @@ services:
     # Want to debug this container?
     #   After 'docker-compose build' and 'docker-compose up'
     #   run: 'docker-compose exec dev_webserver bash' and investigate...
-    entrypoint: ["sh", "-c", "sleep 2073600"]
+    #entrypoint: ["sh", "-c", "sleep 2073600"]
 
     build:
       # path to Dockerfile from this file
@@ -29,7 +29,7 @@ services:
 
     # map each named volume to a specified folder/file in container
     volumes:
-      - ./:/var/www/html # copy from here to there...
+      #- ./:/var/www/html # copy from here to there... <-- this makes no sense, why would you want to save the laravel project as a volume???
       - /docker/volumes/php:/usr/local/etc/php/php.ini # map host server dir to container file...
       - /docker/volumes/apache2_logs:/var/log/apache2 # map host server dir to container dir...
 

@@ -98,5 +98,6 @@ RUN ls && echo ~~~~~~~~~~~~
 # run container
 CMD ["apachectl","-D","FOREGROUND"]
 RUN a2enmod rewrite
+RUN service apache2 restart
 EXPOSE 80
 EXPOSE 443
