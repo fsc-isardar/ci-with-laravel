@@ -65,6 +65,7 @@ RUN rm -rfv /etc/apache2/sites-enabled/*.conf
 RUN ln -s /etc/apache2/sites-available/vhost.conf /etc/apache2/sites-enabled/vhost.conf
 
 # copy laravel project
+RUN mkdir /var/www/html/laravel-project
 COPY . /var/www/html/laravel-project/
 COPY ./server/.env /var/www/html/laravel-project/
 
