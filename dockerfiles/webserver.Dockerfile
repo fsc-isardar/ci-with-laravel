@@ -93,6 +93,9 @@ RUN npm run dev
 RUN php artisan key:generate
 #RUN php artisan migrate:fresh --seed   <--- requires the docker containers to be up and running
 
+# allow execute on shell script
+RUN chmod +x /var/www/html/laravel-project/server/init.sh
+
 # run container
 #CMD ["apachectl","-D","FOREGROUND"]
 ENTRYPOINT ["/var/www/html/laravel-project/server/init.sh"]
