@@ -74,9 +74,6 @@ RUN chmod +x /var/www/html/laravel-project/server/getcomposer.sh
 RUN /var/www/html/laravel-project/server/getcomposer.sh
 
 # navigate to and compile project
-RUN ls && echo ~~~~~~~~~~~~
-RUN ls /var/www/html && echo ~~~~~~~~~~~~
-RUN ls /var/www/html/laravel-project && echo ~~~~~~~~~~~~
 WORKDIR /var/www/html/laravel-project
 RUN ls && echo ~~~~~~~~~~~~
 RUN composer update
@@ -96,6 +93,7 @@ RUN npm rebuild
 RUN npm run dev
 RUN php artisan key:generate
 #RUN php artisan migrate:fresh --seed
+RUN ls && echo ~~~~~~~~~~~~
 
 # run container
 CMD ["apachectl","-D","FOREGROUND"]
