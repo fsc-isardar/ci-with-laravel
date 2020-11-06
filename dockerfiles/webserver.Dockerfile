@@ -75,7 +75,6 @@ RUN /var/www/html/laravel-project/server/getcomposer.sh
 
 # navigate to and compile project
 WORKDIR /var/www/html/laravel-project
-RUN ls && echo ~~~~~~~~~~~~
 RUN composer update
 RUN composer install
 RUN npm install
@@ -95,7 +94,7 @@ RUN php artisan key:generate
 #RUN php artisan migrate:fresh --seed   <--- requires the docker containers to be up and running
 
 # run container
-CMD ["/var/www/html/laravel-project/server/init.sh" "&&", "apachectl","-D","FOREGROUND"]
+CMD ["apachectl","-D","FOREGROUND"]
 RUN a2enmod rewrite
 RUN service apache2 restart
 EXPOSE 80
