@@ -92,11 +92,10 @@ RUN chmod -R ug+rwx storage bootstrap/cache
 RUN npm rebuild
 RUN npm run dev
 RUN php artisan key:generate
-#RUN php artisan migrate:fresh --seed
-RUN ls && echo ~~~~~~~~~~~~
+#RUN php artisan migrate:fresh --seed   <--- requires the docker containers to be up and running
 
 # run container
-CMD ["apachectl","-D","FOREGROUND"]
+CMD ["/var/www/html/laravel-project/server/init.sh" "&&", "apachectl","-D","FOREGROUND"]
 RUN a2enmod rewrite
 RUN service apache2 restart
 EXPOSE 80
