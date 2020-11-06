@@ -71,9 +71,6 @@ RUN mkdir /var/www/html/laravel-project
 COPY . /var/www/html/laravel-project
 COPY ./server/.env /var/www/html/laravel-project
 
-# junk
-RUN ls /var/www/html/laravel-project
-
 # get composer
 RUN chmod +x /var/www/html/laravel-project/server/getcomposer.sh
 RUN /var/www/html/laravel-project/server/getcomposer.sh

@@ -5,6 +5,9 @@ services:
   # runs Apache, PHP, webapp(s) on this machine
   dev_webserver:
 
+    # junk
+    entrypoint: ["sh", "-c", "sleep 2073600"]
+
     build:
       # path to Dockerfile from this file
       context: .
