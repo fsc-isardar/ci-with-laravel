@@ -97,8 +97,9 @@ RUN php artisan key:generate
 RUN chmod +x /var/www/html/laravel-project/server/init.sh
 
 # run container
-#CMD ["apachectl","-D","FOREGROUND"]
 ENTRYPOINT ["/var/www/html/laravel-project/server/init.sh"]
+RUN a2dissite 000-default.conf
+RUN a2ensite vhost.conf
 RUN a2enmod rewrite
 RUN service apache2 restart
 EXPOSE 80

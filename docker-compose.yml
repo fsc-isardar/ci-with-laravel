@@ -62,7 +62,7 @@ services:
     volumes:
       - /docker/volumes/mysql:/var/lib/mysql
       - /docker/volumes/mysql_logs:/var/log/mysql
-      - ./server/init.sql:/data/application/init.sql
+      #- ./server/init.sql:/data/application/init.sql   <-- what is this?? it doesn't make any sense
 
   # runs PhpMyAdmin on this machine
   dev_admin:
