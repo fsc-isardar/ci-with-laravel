@@ -5,8 +5,10 @@ services:
   # runs Apache, PHP, webapp(s) on this machine
   dev_webserver:
 
-    # junk
-    entrypoint: ["sh", "-c", "sleep 2073600"]
+    # Want to debug this container?
+    #   After 'docker-compose build' and 'docker-compose up'
+    #   run: 'docker-compose exec dev_webserver bash' and investigate...
+    #entrypoint: ["sh", "-c", "sleep 2073600"]
 
     build:
       # path to Dockerfile from this file
@@ -34,6 +36,11 @@ services:
   # runs MySQL on this machine
   dev_database:
 
+    # Want to debug this container?
+    #   After 'docker-compose build' and 'docker-compose up'
+    #   run: 'docker-compose exec dev_database bash' and investigate...
+    #entrypoint: ["sh", "-c", "sleep 2073600"]
+
     build:
       context: .
       dockerfile: ./dockerfiles/database.Dockerfile
@@ -59,6 +66,11 @@ services:
 
   # runs PhpMyAdmin on this machine
   dev_admin:
+
+    # Want to debug this container?
+    #   After 'docker-compose build' and 'docker-compose up'
+    #   run: 'docker-compose exec dev_admin bash' and investigate...
+    #entrypoint: ["sh", "-c", "sleep 2073600"]
 
     build:
       context: .
